@@ -1,93 +1,126 @@
+import * as React from "react";
 import { StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
+import OpenSansLight from "./assets/fonts/OpenSans/OpenSans-Light.ttf";
+import OpenSansRegular from "./assets/fonts/OpenSans/OpenSans-Regular.ttf";
+import OpenSansMedium from "./assets/fonts/OpenSans/OpenSans-Medium.ttf";
+import OpenSansSemiBold from "./assets/fonts/OpenSans/OpenSans-SemiBold.ttf";
+import OpenSansBold from "./assets/fonts/OpenSans/OpenSans-Bold.ttf";
+import OpenSansExtraBold from "./assets/fonts/OpenSans/OpenSans-ExtraBold.ttf";
+
+import OpenSansLightItalic from "./assets/fonts/OpenSans/OpenSans-LightItalic.ttf";
+import OpenSansItalic from "./assets/fonts/OpenSans/OpenSans-Italic.ttf";
+import OpenSansMediumItalic from "./assets/fonts/OpenSans/OpenSans-MediumItalic.ttf";
+import OpenSansSemiBoldItalic from "./assets/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf";
+import OpenSansBoldItalic from "./assets/fonts/OpenSans/OpenSans-BoldItalic.ttf";
+import OpenSansExtraBoldItalic from "./assets/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf";
+
 const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: "OpenSans",
+    },
+  },
   components: {
     MuiCssBaseline: {
-      styleOverrides: (themeParam) => `
-      :root {
-        font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 400;
-      
-        color-scheme: light dark;
-        color: rgba(255, 255, 255, 0.87);
-        background-color: #242424;
-      
-        font-synthesis: none;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-text-size-adjust: 100%;
-      }
-      
-      a {
-        font-weight: 500;
-        color: #646cff;
-        text-decoration: inherit;
-      }
-      a:hover {
-        color: #535bf2;
-      }
-      
-      body {
-        margin: 0;
-        display: flex;
-        place-items: center;
-        min-width: 320px;
-        min-height: 100vh;
-      }
-      
-      h1 {
-        font-size: 3.2em;
-        line-height: 1.1;
-      }
-      
-      button {
-        border-radius: 8px;
-        border: 1px solid transparent;
-        padding: 0.6em 1.2em;
-        font-size: 1em;
-        font-weight: 500;
-        font-family: inherit;
-        background-color: #1a1a1a;
-        cursor: pointer;
-        transition: border-color 0.25s;
-      }
-      button:hover {
-        border-color: #646cff;
-      }
-      button:focus,
-      button:focus-visible {
-        outline: 4px auto -webkit-focus-ring-color;
-      }
-      
-      @media (prefers-color-scheme: light) {
-        :root {
-          color: #213547;
-          background-color: #ffffff;
+      styleOverrides: () => `
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 100 300;
+          font-style: normal;
+          src: url(${OpenSansLight});
+        }      
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 400;
+          src: url(${OpenSansRegular});
         }
-        a:hover {
-          color: #747bff;
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 500;
+          src: url(${OpenSansMedium});
         }
-        button {
-          background-color: #f9f9f9;
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 600;
+          src: url(${OpenSansSemiBold});
         }
-      }      
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 700;
+          src: url(${OpenSansBold});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 800 950;
+          src: url(${OpenSansExtraBold});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 100 300;
+          font-style: italic;
+          src: url(${OpenSansLightItalic});
+        }      
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 400;
+          font-style: italic;
+          src: url(${OpenSansItalic});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 500;
+          font-style: italic;
+          src: url(${OpenSansMediumItalic});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 600;
+          font-style: italic;
+          src: url(${OpenSansSemiBoldItalic});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 700;
+          font-style: italic;
+          src: url(${OpenSansBoldItalic});
+        }
+
+        @font-face {
+          font-family: "OpenSans";
+          font-weight: 800 950;
+          font-style: italic;
+          src: url(${OpenSansExtraBoldItalic});
+        }
       `,
     },
   },
 });
 
-export const Styles = ({ children }) => {
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
+export type TStylesProps = {
+  children: React.ReactNode;
 };
+export class Styles extends React.Component<TStylesProps> {
+  render() {
+    return (
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {this.props.children}
+        </ThemeProvider>
+      </StyledEngineProvider>
+    );
+  }
+}
