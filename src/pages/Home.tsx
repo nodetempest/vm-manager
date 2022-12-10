@@ -28,7 +28,7 @@ export class Home extends React.Component {
           <Box sx={{ display: "flex", gap: "12px", justifyContent: "center" }}>
             <Button
               component={Link}
-              to="/create-vm"
+              to="/add-vm"
               sx={{ p: "32px 64px" }}
               variant="contained"
             >
@@ -36,7 +36,7 @@ export class Home extends React.Component {
             </Button>
             <Button
               component={Link}
-              to="/view-vms"
+              to="/vm-list"
               sx={{ p: "32px 64px" }}
               variant="contained"
             >

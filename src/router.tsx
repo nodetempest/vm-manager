@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { Home } from "./pages/Home";
-import { CreateVM } from "./pages/CreateVM";
-import { ViewVMs } from "./pages/ViewVMs";
+import { AddVM } from "./pages/AddVM";
+import { VMList } from "./pages/VMList";
 import { VMWizard } from "./layouts/VMWizard";
 
 export const router = createBrowserRouter([
@@ -13,8 +13,8 @@ export const router = createBrowserRouter([
   {
     element: <VMWizard />,
     children: [
-      { path: "/create-vm", element: <CreateVM /> },
-      { path: "/view-vms", element: <ViewVMs /> },
+      { path: "/add-vm", element: <AddVM /> },
+      { path: "/vm-list", element: <VMList /> },
     ],
   },
 ]);
