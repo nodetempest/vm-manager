@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material";
 
 import OpenSansLight from "@/assets/fonts/OpenSans/OpenSans-Light.ttf";
 import OpenSansRegular from "@/assets/fonts/OpenSans/OpenSans-Regular.ttf";
@@ -28,7 +28,7 @@ export const theme = createTheme({
           font-weight: 100 300;
           font-style: normal;
           src: url(${OpenSansLight});
-        }      
+        }
 
         @font-face {
           font-family: "OpenSans";
@@ -65,7 +65,7 @@ export const theme = createTheme({
           font-weight: 100 300;
           font-style: italic;
           src: url(${OpenSansLightItalic});
-        }      
+        }
 
         @font-face {
           font-family: "OpenSans";
