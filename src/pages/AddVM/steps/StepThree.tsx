@@ -1,5 +1,7 @@
-import React from "react";
+import * as React from "react";
 
-export const StepThree = () => {
-  return <div>StepThree</div>;
-};
+export class StepThree extends React.Component {
+  render() {
+    return <div>StepThree</div>;
+  }
+}
