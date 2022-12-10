@@ -1,5 +1,11 @@
-import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
+import { Styles } from "./styles/Styles";
 
 export const App = () => {
-  return <div>App</div>;
+  return (
+    <Styles>
+      <RouterProvider router={router} />
+    </Styles>
+  );
 };
