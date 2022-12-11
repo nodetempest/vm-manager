@@ -15,11 +15,7 @@ import {
 import { AppDispatch } from "~/state/store";
 import { addVM } from "~/state/slices/VMs/slice";
 
-const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
-];
+const steps = ["General info", "Destination", "Summary"];
 
 export type TAddVMState = {
   activeStep: number;
