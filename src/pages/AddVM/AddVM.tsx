@@ -20,7 +20,7 @@ const steps = [
 
 export type TAddVMState = {
   activeStep: number;
-  completed: boolean[];
+  completed: Record<number, boolean>;
 };
 
 export class Base extends React.Component<TWithStateProps, TAddVMState> {
@@ -37,11 +37,9 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
 
   totalSteps = () => steps.length;
 
-  completedSteps = () => this.state.completed.length;
+  completedSteps = () => Object.keys(this.state.completed).length;
 
   isLastStep = () => this.state.activeStep === this.totalSteps() - 1;
-
-  allStepsCompleted = () => this.completedSteps() === this.totalSteps();
 
   validate = (callback: () => void) =>
     this.forms[this.state.activeStep].handleSubmit(callback)();

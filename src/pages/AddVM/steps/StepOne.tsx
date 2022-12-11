@@ -35,7 +35,7 @@ const schema = yup.object({
   //   .trim()
   //   .oneOf(["intel", "celeron", "xeon"])
   //   .required("Processor type name is required"),
-  // VMName: yup.string().trim().required("Virtual machine name is required"),
+  VMName: yup.string().trim().required("Virtual machine name is required"),
 });
 
 const defaultValues = {
