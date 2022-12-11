@@ -24,12 +24,17 @@ const VMsSlice = createSlice({
       state[id] = { ...action.payload, id };
     },
 
-    deleteVMs(state, action: PayloadAction<string | string[]>) {
-      state = omit(state, [action.payload].flat());
+    deleteVMs(state, action: PayloadAction<string[]>) {
+      action.payload.forEach((id) => delete state[id]);
+    },
+
+    togglePower(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      state[id].power = !state[id].power;
     },
   },
 });
 
-export const { addVM, deleteVMs } = VMsSlice.actions;
+export const { addVM, deleteVMs, togglePower } = VMsSlice.actions;
 
 export const VMsReducer = VMsSlice.reducer;
