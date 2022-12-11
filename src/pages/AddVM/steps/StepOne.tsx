@@ -12,7 +12,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import capitalize from "lodash/capitalize";
 export interface IStepOneFormInput {
-  firstName: string;
   VMAddress: string;
   username: string;
   password: string;
@@ -21,7 +20,6 @@ export interface IStepOneFormInput {
 }
 
 const schema = yup.object({
-  // firstName: yup.string().trim().required(),
   // VMAddress: yup
   //   .string()
   //   .trim()
@@ -41,7 +39,6 @@ const schema = yup.object({
 });
 
 const defaultValues = {
-  firstName: "",
   VMAddress: "",
   username: "",
   password: "",
@@ -67,6 +64,14 @@ export type TStepOneState = {
 
 const procValues = ["intel", "celeron", "xeon"] as const;
 
+export const keyLabelMap: Record<keyof IStepOneFormInput, string> = {
+  VMAddress: "Virtual Machine Address",
+  username: "Login",
+  password: "Password",
+  procType: "Processor type",
+  VMName: "Virtual machine name",
+};
+
 export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
   state = { showPassword: false };
 
@@ -83,32 +88,13 @@ export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
         component="form"
       >
         <Controller
-          render={(props) => {
-            console.log("form1", props);
-            const { field, fieldState } = props;
-            return (
-              <TextField
-                {...field}
-                helperText={fieldState.error?.message}
-                error={!!fieldState.error?.message}
-                label="First Name *"
-                placeholder="First Name"
-                size="small"
-                variant="standard"
-              />
-            );
-          }}
-          name="firstName"
-          control={control}
-        />
-        <Controller
           render={(params) => (
             <TextField
               {...params.field}
               helperText={params.fieldState.error?.message}
               error={!!params.fieldState.error?.message}
-              label="Virtual Machine Address *"
-              placeholder="Virtual Machine Address"
+              label={keyLabelMap.VMAddress}
+              placeholder={keyLabelMap.VMAddress}
               size="small"
               variant="standard"
             />
@@ -122,8 +108,8 @@ export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
               {...params.field}
               helperText={params.fieldState.error?.message}
               error={!!params.fieldState.error?.message}
-              label="Login *"
-              placeholder="Login"
+              label={keyLabelMap.username}
+              placeholder={keyLabelMap.username}
               size="small"
               variant="standard"
             />
@@ -137,8 +123,8 @@ export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
               {...params.field}
               helperText={params.fieldState.error?.message}
               error={!!params.fieldState.error?.message}
-              label="Password *"
-              placeholder="Password"
+              label={keyLabelMap.password}
+              placeholder={keyLabelMap.password}
               size="small"
               variant="standard"
               type={showPassword ? "text" : "password"}
@@ -163,8 +149,8 @@ export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
               helperText={params.fieldState.error?.message}
               error={!!params.fieldState.error?.message}
               select
-              label="Processor type *"
-              placeholder="Processor type"
+              label={keyLabelMap.procType}
+              placeholder={keyLabelMap.procType}
               size="small"
               variant="standard"
             >
@@ -184,8 +170,8 @@ export class StepOne extends React.Component<TStepOneProps, TStepOneState> {
               {...params.field}
               helperText={params.fieldState.error?.message}
               error={!!params.fieldState.error?.message}
-              label="Virtual machine name *"
-              placeholder="Virtual machine name"
+              label={keyLabelMap.VMName}
+              placeholder={keyLabelMap.VMName}
               size="small"
               variant="standard"
             />

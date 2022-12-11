@@ -1,18 +1,16 @@
 import * as React from "react";
-import { UseFormHandleSubmit, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { useNavigate, NavigateFunction } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Stepper,
-  Step,
-  StepButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Stepper, Step, StepButton } from "@mui/material";
 
 import { Footer } from "@/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
 import { StepTwo, useStepTwoForm, IStepTwoFormInput } from "./steps/StepTwo";
+import {
+  StepThree,
+  useStepThreeForm,
+  IStepThreeFormInput,
+} from "./steps/StepThree";
 
 const steps = [
   "Select campaign settings",
@@ -27,7 +25,7 @@ export type TAddVMState = {
 
 export class Base extends React.Component<TWithStateProps, TAddVMState> {
   state = {
-    activeStep: 1,
+    activeStep: 0,
     completed: [],
   };
 
@@ -45,9 +43,8 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
 
   allStepsCompleted = () => this.completedSteps() === this.totalSteps();
 
-  validate = (callback: () => void) => {
+  validate = (callback: () => void) =>
     this.forms[this.state.activeStep].handleSubmit(callback)();
-  };
 
   handleNext = () => {
     this.validate(() => {
@@ -85,6 +82,10 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
         }));
       });
     }
+  };
+
+  handleCreate = () => {
+    this.props.navigate("..");
   };
 
   render() {
@@ -157,7 +158,10 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
                 [
                   <StepOne control={stepOneForm.control} />,
                   <StepTwo control={stepTwoForm.control} />,
-                  <div>form3</div>,
+                  <StepThree
+                    control={stepThreeForm.control}
+                    {...stepOneForm.getValues()}
+                  />,
                 ][activeStep]
               }
             </Box>
@@ -167,8 +171,11 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
           <Button onClick={this.handleBack} variant="outlined">
             Back
           </Button>
-          <Button onClick={this.handleNext} variant="contained">
-            Next
+          <Button
+            onClick={this.isLastStep() ? this.handleCreate : this.handleNext}
+            variant="contained"
+          >
+            {this.isLastStep() ? "Create" : "Next"}
           </Button>
         </Footer>
       </>
@@ -176,20 +183,11 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
   }
 }
 
-type TMockForm = { handleSubmit: UseFormHandleSubmit<{}> };
-
 export type TWithStateProps = {
   stepOneForm: UseFormReturn<IStepOneFormInput>;
   stepTwoForm: UseFormReturn<IStepTwoFormInput>;
-  stepThreeForm: TMockForm;
+  stepThreeForm: UseFormReturn<IStepThreeFormInput>;
   navigate: NavigateFunction;
-};
-
-const createMockForm = (): TMockForm => {
-  return {
-    handleSubmit: (onSubmit) => () =>
-      new Promise<void>((resolve) => onSubmit(resolve)),
-  };
 };
 
 const withState = <P extends TWithStateProps>(
@@ -198,7 +196,7 @@ const withState = <P extends TWithStateProps>(
   return (props) => {
     const stepOneForm = useStepOneForm();
     const stepTwoForm = useStepTwoForm();
-    const stepThreeForm = createMockForm();
+    const stepThreeForm = useStepThreeForm();
     const navigate = useNavigate();
     return (
       <Component
