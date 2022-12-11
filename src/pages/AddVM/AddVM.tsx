@@ -110,7 +110,14 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
             width: 1,
           }}
         >
-          <Box sx={{ maxWidth: 1000, display: "flex", gap: 6 }}>
+          <Box
+            sx={{
+              maxWidth: 1000,
+              display: "flex",
+              gap: 6,
+              alignItems: "flex-start",
+            }}
+          >
             <Stepper
               nonLinear
               activeStep={activeStep}
