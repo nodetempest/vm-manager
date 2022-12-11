@@ -2,6 +2,7 @@ import * as React from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Button, Stepper, Step, StepButton } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 import { Footer } from "~/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
@@ -11,6 +12,8 @@ import {
   useStepThreeForm,
   IStepThreeFormInput,
 } from "./steps/StepThree";
+import { AppDispatch } from "~/state/store";
+import { addVM } from "~/state/slices/VMs/slice";
 
 const steps = [
   "Select campaign settings",
@@ -83,12 +86,25 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
   };
 
   handleCreate = () => {
+    const { VMName, VMAddress, procType } = this.props.stepOneForm.getValues();
+    const { cluster } = this.props.stepTwoForm.getValues();
+    const { powerOn } = this.props.stepThreeForm.getValues();
+
+    this.props.dispatch(
+      addVM({
+        VMName,
+        procType,
+        IP: VMAddress,
+        repository: cluster,
+        power: powerOn,
+      })
+    );
     this.props.navigate("..");
   };
 
   render() {
     const { activeStep, completed } = this.state;
-    const [stepOneForm, stepTwoForm, stepThreeForm] = this.forms;
+    const { stepOneForm, stepTwoForm, stepThreeForm } = this.props;
 
     return (
       <>
@@ -186,6 +202,7 @@ export type TWithStateProps = {
   stepTwoForm: UseFormReturn<IStepTwoFormInput>;
   stepThreeForm: UseFormReturn<IStepThreeFormInput>;
   navigate: NavigateFunction;
+  dispatch: AppDispatch;
 };
 
 const withState = <P extends TWithStateProps>(
@@ -196,6 +213,7 @@ const withState = <P extends TWithStateProps>(
     const stepTwoForm = useStepTwoForm();
     const stepThreeForm = useStepThreeForm();
     const navigate = useNavigate();
+    const dispatch: AppDispatch = useDispatch();
     return (
       <Component
         {...(props as P)}
@@ -203,6 +221,7 @@ const withState = <P extends TWithStateProps>(
         stepTwoForm={stepTwoForm}
         stepThreeForm={stepThreeForm}
         navigate={navigate}
+        dispatch={dispatch}
       />
     );
   };

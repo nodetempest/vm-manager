@@ -11,30 +11,31 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import capitalize from "lodash/capitalize";
+
 export interface IStepOneFormInput {
   VMAddress: string;
   username: string;
   password: string;
-  procType: string;
+  procType: "intel" | "celeron" | "xeon";
   VMName: string;
 }
 
 const schema = yup.object({
-  // VMAddress: yup
-  //   .string()
-  //   .trim()
-  //   .matches(
-  //     /^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$/,
-  //     "Incorrect IP address value"
-  //   )
-  //   .required("IP address is required"),
-  // username: yup.string().trim().required("Username name is required"),
-  // password: yup.string().trim().required("Password name is required"),
-  // procType: yup
-  //   .string()
-  //   .trim()
-  //   .oneOf(["intel", "celeron", "xeon"])
-  //   .required("Processor type name is required"),
+  VMAddress: yup
+    .string()
+    .trim()
+    .matches(
+      /^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$/,
+      "Incorrect IP address value"
+    )
+    .required("IP address is required"),
+  username: yup.string().trim().required("Username name is required"),
+  password: yup.string().trim().required("Password name is required"),
+  procType: yup
+    .string()
+    .trim()
+    .oneOf(["intel", "celeron", "xeon"])
+    .required("Processor type name is required"),
   VMName: yup.string().trim().required("Virtual machine name is required"),
 });
 
@@ -42,7 +43,7 @@ const defaultValues = {
   VMAddress: "",
   username: "",
   password: "",
-  procType: "",
+  procType: "" as IStepOneFormInput["procType"],
   VMName: "",
 };
 
