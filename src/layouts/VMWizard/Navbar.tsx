@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Typography, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
-const Base = class extends React.Component<TWithNavigateProps> {
+class Base extends React.Component<TWithNavigateProps> {
   render() {
     return (
       <Box
@@ -63,7 +63,7 @@ const Base = class extends React.Component<TWithNavigateProps> {
       </Box>
     );
   }
-};
+}
 
 export type TWithNavigateProps = {
   navigate: NavigateFunction;
@@ -78,6 +78,4 @@ const withNavigate = <P extends TWithNavigateProps>(
   };
 };
 
-const Navbar = withNavigate(Base);
-
-export { Navbar };
+export const Navbar = withNavigate(Base);
