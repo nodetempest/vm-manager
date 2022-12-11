@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Button } from "@mui/material";
 
-import { Footer } from "@/layouts/VMWizard/Footer";
+import { Footer } from "~/layouts/VMWizard/Footer";
 
 export class VMList extends React.Component {
   render() {

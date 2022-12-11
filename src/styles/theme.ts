@@ -1,18 +1,18 @@
 import { createTheme } from "@mui/material";
 
-import OpenSansLight from "@/assets/fonts/OpenSans/OpenSans-Light.ttf";
-import OpenSansRegular from "@/assets/fonts/OpenSans/OpenSans-Regular.ttf";
-import OpenSansMedium from "@/assets/fonts/OpenSans/OpenSans-Medium.ttf";
-import OpenSansSemiBold from "@/assets/fonts/OpenSans/OpenSans-SemiBold.ttf";
-import OpenSansBold from "@/assets/fonts/OpenSans/OpenSans-Bold.ttf";
-import OpenSansExtraBold from "@/assets/fonts/OpenSans/OpenSans-ExtraBold.ttf";
+import OpenSansLight from "~/assets/fonts/OpenSans/OpenSans-Light.ttf";
+import OpenSansRegular from "~/assets/fonts/OpenSans/OpenSans-Regular.ttf";
+import OpenSansMedium from "~/assets/fonts/OpenSans/OpenSans-Medium.ttf";
+import OpenSansSemiBold from "~/assets/fonts/OpenSans/OpenSans-SemiBold.ttf";
+import OpenSansBold from "~/assets/fonts/OpenSans/OpenSans-Bold.ttf";
+import OpenSansExtraBold from "~/assets/fonts/OpenSans/OpenSans-ExtraBold.ttf";
 
-import OpenSansLightItalic from "@/assets/fonts/OpenSans/OpenSans-LightItalic.ttf";
-import OpenSansItalic from "@/assets/fonts/OpenSans/OpenSans-Italic.ttf";
-import OpenSansMediumItalic from "@/assets/fonts/OpenSans/OpenSans-MediumItalic.ttf";
-import OpenSansSemiBoldItalic from "@/assets/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf";
-import OpenSansBoldItalic from "@/assets/fonts/OpenSans/OpenSans-BoldItalic.ttf";
-import OpenSansExtraBoldItalic from "@/assets/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf";
+import OpenSansLightItalic from "~/assets/fonts/OpenSans/OpenSans-LightItalic.ttf";
+import OpenSansItalic from "~/assets/fonts/OpenSans/OpenSans-Italic.ttf";
+import OpenSansMediumItalic from "~/assets/fonts/OpenSans/OpenSans-MediumItalic.ttf";
+import OpenSansSemiBoldItalic from "~/assets/fonts/OpenSans/OpenSans-SemiBoldItalic.ttf";
+import OpenSansBoldItalic from "~/assets/fonts/OpenSans/OpenSans-BoldItalic.ttf";
+import OpenSansExtraBoldItalic from "~/assets/fonts/OpenSans/OpenSans-ExtraBoldItalic.ttf";
 
 export const theme = createTheme({
   typography: {

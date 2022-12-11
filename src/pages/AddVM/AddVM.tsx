@@ -3,7 +3,7 @@ import { UseFormReturn } from "react-hook-form";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Button, Stepper, Step, StepButton } from "@mui/material";
 
-import { Footer } from "@/layouts/VMWizard/Footer";
+import { Footer } from "~/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
 import { StepTwo, useStepTwoForm, IStepTwoFormInput } from "./steps/StepTwo";
 import {
