@@ -8,6 +8,7 @@ export type TVM = {
   IP: string;
   repository: string;
   power: boolean;
+  id: string;
 };
 
 export type TVMs = Record<string, TVM>;
@@ -18,16 +19,17 @@ const VMsSlice = createSlice({
   name: "VMs",
   initialState,
   reducers: {
-    addVM(state, action: PayloadAction<TVM>) {
-      state[nanoid()] = action.payload;
+    addVM(state, action: PayloadAction<Omit<TVM, "id">>) {
+      const id = nanoid();
+      state[id] = { ...action.payload, id };
     },
 
-    deleteVMs(state, action: PayloadAction<string[]>) {
-      state = omit(state, action.payload);
+    deleteVMs(state, action: PayloadAction<string | string[]>) {
+      state = omit(state, [action.payload].flat());
     },
   },
 });
 
 export const { addVM, deleteVMs } = VMsSlice.actions;
 
-export const { reducer: VMsReducer } = VMsSlice;
+export const VMsReducer = VMsSlice.reducer;
