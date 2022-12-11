@@ -12,7 +12,7 @@ import {
 
 import { Footer } from "@/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
-import { boolean } from "yup";
+import { StepTwo } from "./steps/StepTwo";
 
 const steps = [
   "Select campaign settings",
@@ -27,7 +27,7 @@ export type TAddVMState = {
 
 export class Base extends React.Component<TWithStateProps, TAddVMState> {
   state = {
-    activeStep: 0,
+    activeStep: 1,
     completed: [],
   };
 
@@ -156,7 +156,7 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
               {
                 [
                   <StepOne control={stepOneForm.control} />,
-                  <div>form2</div>,
+                  <StepTwo />,
                   <div>form3</div>,
                 ][activeStep]
               }

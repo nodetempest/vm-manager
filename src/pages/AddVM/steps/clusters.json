@@ -1,0 +1,30 @@
+[
+  {
+    "value": "first_cluster",
+    "label": "first_cluster",
+    "children": [
+      {
+        "value": "repo_1",
+        "label": "repo_1"
+      },
+      {
+        "value": "repo_2",
+        "label": "repo_2"
+      }
+    ]
+  },
+  {
+    "value": "second_cluster",
+    "label": "second_cluster",
+    "children": [
+      {
+        "value": "repo_3",
+        "label": "repo_3"
+      },
+      {
+        "value": "repo_4",
+        "label": "repo_4"
+      }
+    ]
+  }
+]
