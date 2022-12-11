@@ -40,37 +40,31 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
 
   isLastStep = () => this.state.activeStep === this.totalSteps() - 1;
 
-  validate = (callback: () => void) =>
+  validate = (callback: () => void) => {
     this.forms[this.state.activeStep].handleSubmit(callback)();
-
-  handleNext = () => {
-    this.validate(() => {
-      this.setState((prev) => ({
-        activeStep: prev.activeStep + 1,
-        completed: { ...prev.completed, [this.state.activeStep]: true },
-      }));
-    });
   };
+
+  handleNext = () => this.handleSetStep(this.state.activeStep + 1);
 
   handleBack = () => {
     if (this.state.activeStep === 0) {
       this.props.navigate("..");
     }
 
-    this.validate(() => {
-      this.setState((prev) => ({
-        ...prev,
-        activeStep: prev.activeStep - 1,
-      }));
-    });
+    this.handleSetStep(this.state.activeStep - 1);
   };
 
-  handleSetStep = (step: number) => () => {
+  handleSetStep = (step: number) => {
     if (this.state.activeStep === step) {
       return;
     } // go next step when try to skip over uncompleted steps
     else if (step > this.completedSteps()) {
-      this.handleNext();
+      this.validate(() => {
+        this.setState((prev) => ({
+          activeStep: prev.activeStep + 1,
+          completed: { ...prev.completed, [this.state.activeStep]: true },
+        }));
+      });
     } else {
       this.validate(() => {
         this.setState((prev) => ({
@@ -95,6 +89,7 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
         power: powerOn,
       })
     );
+
     this.props.navigate("..");
   };
 
@@ -156,7 +151,7 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
                 >
                   <StepButton
                     color="inherit"
-                    onClick={this.handleSetStep(index)}
+                    onClick={() => this.handleSetStep(index)}
                   >
                     {label}
                   </StepButton>

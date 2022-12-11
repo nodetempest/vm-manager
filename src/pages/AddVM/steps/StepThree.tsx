@@ -95,7 +95,6 @@ export class StepThree extends React.Component<TStepThreeProps> {
                     ...theme.typography.subtitle2,
                   }),
                 }}
-                {...params.field}
                 onChange={params.field.onChange}
                 checked={params.field.value}
               />
