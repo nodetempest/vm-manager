@@ -12,7 +12,7 @@ import {
 
 import { Footer } from "@/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
-import { StepTwo } from "./steps/StepTwo";
+import { StepTwo, useStepTwoForm, IStepTwoFormInput } from "./steps/StepTwo";
 
 const steps = [
   "Select campaign settings",
@@ -152,11 +152,11 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
                 </Step>
               ))}
             </Stepper>
-            <Box sx={{ p: 4 }}>
+            <Box sx={{ p: 4, flexGrow: 1 }}>
               {
                 [
                   <StepOne control={stepOneForm.control} />,
-                  <StepTwo />,
+                  <StepTwo control={stepTwoForm.control} />,
                   <div>form3</div>,
                 ][activeStep]
               }
@@ -180,7 +180,7 @@ type TMockForm = { handleSubmit: UseFormHandleSubmit<{}> };
 
 export type TWithStateProps = {
   stepOneForm: UseFormReturn<IStepOneFormInput>;
-  stepTwoForm: TMockForm;
+  stepTwoForm: UseFormReturn<IStepTwoFormInput>;
   stepThreeForm: TMockForm;
   navigate: NavigateFunction;
 };
@@ -197,7 +197,7 @@ const withState = <P extends TWithStateProps>(
 ): React.FC<Omit<P, keyof TWithStateProps>> => {
   return (props) => {
     const stepOneForm = useStepOneForm();
-    const stepTwoForm = createMockForm();
+    const stepTwoForm = useStepTwoForm();
     const stepThreeForm = createMockForm();
     const navigate = useNavigate();
     return (
