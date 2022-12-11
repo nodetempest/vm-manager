@@ -1,5 +1,6 @@
 import * as React from "react";
 import { UseFormHandleSubmit, UseFormReturn } from "react-hook-form";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 import {
   Box,
   Button,
@@ -58,6 +59,10 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
   };
 
   handleBack = () => {
+    if (this.state.activeStep === 0) {
+      this.props.navigate("..");
+    }
+
     this.validate(() => {
       this.setState((prev) => ({
         ...prev,
@@ -98,15 +103,34 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
         <Box
           component="main"
           sx={{
-            p: "20px 40px",
+            p: "0px 40px",
             flexGrow: 1,
             maxWidth: "1360px",
             alignSelf: "center",
             width: 1,
           }}
         >
-          <Box sx={{ width: "100%", maxWidth: 1000 }}>
-            <Stepper nonLinear activeStep={activeStep} orientation="vertical">
+          <Box sx={{ maxWidth: 1000, display: "flex", gap: 6 }}>
+            <Stepper
+              nonLinear
+              activeStep={activeStep}
+              orientation="vertical"
+              sx={{
+                pt: 3,
+                "& .MuiStepLabel-labelContainer": { order: -1 },
+                "& .MuiStepButton-root": { justifyContent: "end" },
+                "& .MuiStepConnector-line": {
+                  borderRightStyle: "solid",
+                  borderRightWidth: 1,
+                  borderLeftWidth: 0,
+                },
+                "& .MuiStepConnector-root": { ml: 0, mr: "12px" },
+                "& .MuiStepLabel-iconContainer": {
+                  pr: 0,
+                  pl: 1,
+                },
+              }}
+            >
               {steps.map((label, index) => (
                 <Step
                   key={label}
@@ -121,13 +145,15 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
                 </Step>
               ))}
             </Stepper>
-            {
-              [
-                <StepOne control={stepOneForm.control} />,
-                <div>form2</div>,
-                <div>form3</div>,
-              ][activeStep]
-            }
+            <Box sx={{ p: 4 }}>
+              {
+                [
+                  <StepOne control={stepOneForm.control} />,
+                  <div>form2</div>,
+                  <div>form3</div>,
+                ][activeStep]
+              }
+            </Box>
           </Box>
         </Box>
         <Footer>
@@ -149,6 +175,7 @@ export type TWithStateProps = {
   stepOneForm: UseFormReturn<IStepOneFormInput>;
   stepTwoForm: TMockForm;
   stepThreeForm: TMockForm;
+  navigate: NavigateFunction;
 };
 
 const createMockForm = (): TMockForm => {
@@ -165,12 +192,14 @@ const withState = <P extends TWithStateProps>(
     const stepOneForm = useStepOneForm();
     const stepTwoForm = createMockForm();
     const stepThreeForm = createMockForm();
+    const navigate = useNavigate();
     return (
       <Component
         {...(props as P)}
         stepOneForm={stepOneForm}
         stepTwoForm={stepTwoForm}
         stepThreeForm={stepThreeForm}
+        navigate={navigate}
       />
     );
   };
