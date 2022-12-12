@@ -11,9 +11,15 @@ export type TVM = {
   id: string;
 };
 
-export type TVMs = Record<string, TVM>;
+export type TVMsRecord = Record<string, TVM>;
 
-const initialState: TVMs = {};
+export type TVMsState = {
+  VMsRecord: TVMsRecord;
+};
+
+const initialState: TVMsState = {
+  VMsRecord: {},
+};
 
 const VMsSlice = createSlice({
   name: "VMs",
@@ -21,16 +27,16 @@ const VMsSlice = createSlice({
   reducers: {
     addVM(state, action: PayloadAction<Omit<TVM, "id">>) {
       const id = nanoid();
-      state[id] = { ...action.payload, id };
+      state.VMsRecord[id] = { ...action.payload, id };
     },
 
     deleteVMs(state, action: PayloadAction<string[]>) {
-      action.payload.forEach((id) => delete state[id]);
+      state.VMsRecord = omit(state.VMsRecord, action.payload);
     },
 
     togglePower(state, action: PayloadAction<string>) {
       const id = action.payload;
-      state[id].power = !state[id].power;
+      state.VMsRecord[id].power = !state.VMsRecord[id].power;
     },
   },
 });

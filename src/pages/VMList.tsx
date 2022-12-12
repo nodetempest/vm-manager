@@ -8,7 +8,7 @@ import { Navbar } from "~/layouts/VMWizard/Navbar";
 import { Main } from "~/layouts/VMWizard/Main";
 import { Footer } from "~/layouts/VMWizard/Footer";
 import { AppDispatch } from "~/state/store";
-import { TVMs } from "~/state/slices/VMs/slice";
+import { TVMsRecord } from "~/state/slices/VMs/slice";
 import { RootStateType } from "~/state/rootReducer";
 import { deleteVMs, togglePower } from "~/state/slices/VMs/slice";
 
@@ -61,7 +61,7 @@ export class Base extends React.Component<TWithStateProps, TVMlistState> {
   handleSelectChange = (ids: string[]) => this.setState({ selectedIds: ids });
 
   render() {
-    const { navigate, VMs, dispatch } = this.props;
+    const { navigate, VMsRecord, dispatch } = this.props;
     const { selectedIds } = this.state;
     return (
       <>
@@ -83,7 +83,7 @@ export class Base extends React.Component<TWithStateProps, TVMlistState> {
             </Typography>
             <Box sx={{ flexGrow: 1, width: 1 }}>
               <DataGrid
-                rows={Object.values(VMs)}
+                rows={Object.values(VMsRecord)}
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
@@ -122,7 +122,7 @@ export class Base extends React.Component<TWithStateProps, TVMlistState> {
 export type TWithStateProps = {
   navigate: NavigateFunction;
   dispatch: AppDispatch;
-  VMs: TVMs;
+  VMsRecord: TVMsRecord;
 };
 
 const withState = <P extends TWithStateProps>(
@@ -131,13 +131,15 @@ const withState = <P extends TWithStateProps>(
   return (props) => {
     const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
-    const VMs = useSelector<RootStateType>((state) => state.VMs);
+    const VMsRecord = useSelector<RootStateType, TVMsRecord>(
+      (state) => state.VMs.VMsRecord
+    );
     return (
       <Component
         {...(props as P)}
         navigate={navigate}
         dispatch={dispatch}
-        VMs={VMs}
+        VMsRecord={VMsRecord}
       />
     );
   };
