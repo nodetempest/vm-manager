@@ -30,12 +30,15 @@ const schema = yup.object({
     )
     .required("IP address is required"),
   username: yup.string().trim().required("Username name is required"),
-  password: yup.string().trim().required("Password name is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password must contain 6 or more characters"),
   procType: yup
     .string()
     .trim()
     .oneOf(["intel", "celeron", "xeon"])
-    .required("Processor type name is required"),
+    .required("Processor type is required"),
   VMName: yup.string().trim().required("Virtual machine name is required"),
 });
 
@@ -51,7 +54,7 @@ export const useStepOneForm = () => {
   return useForm<IStepOneFormInput>({
     resolver: yupResolver(schema),
     defaultValues,
-    mode: "onChange",
+    mode: "onTouched",
   });
 };
 
