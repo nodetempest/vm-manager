@@ -101,7 +101,6 @@ export class StepTwo extends React.Component<TStepTwoProps> {
         </Typography>
         <Controller
           render={(params) => {
-            type t = typeof params;
             return (
               <>
                 <TreeView
