@@ -4,6 +4,8 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
+import { Navbar } from "~/layouts/VMWizard/Navbar";
+import { Main } from "~/layouts/VMWizard/Main";
 import { Footer } from "~/layouts/VMWizard/Footer";
 import { AppDispatch } from "~/state/store";
 import { TVMs } from "~/state/slices/VMs/slice";
@@ -63,49 +65,50 @@ export class Base extends React.Component<TWithStateProps, TVMlistState> {
     const { selectedIds } = this.state;
     return (
       <>
-        <Box
-          component="main"
-          sx={{
-            p: "40px",
-            flexGrow: 1,
-            maxWidth: "1360px",
-            alignSelf: "center",
-            width: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
-          <Typography sx={{ mb: "10px", fontWeight: 600 }}>
-            Manage VMs
-          </Typography>
-          <Box sx={{ flexGrow: 1, width: "100%" }}>
-            <DataGrid
-              rows={Object.values(VMs)}
-              columns={columns}
-              pageSize={10}
-              rowsPerPageOptions={[10]}
-              checkboxSelection
-              disableSelectionOnClick
-              experimentalFeatures={{ newEditingApi: true }}
-              onCellClick={(params) => {
-                if (params.field === "power") {
-                  dispatch(togglePower(params.row.id));
-                }
-              }}
-              onSelectionModelChange={(selectionModel) => {
-                this.handleSelectChange(selectionModel as string[]);
-              }}
-            />
-          </Box>
-          <Button
-            onClick={() => dispatch(deleteVMs(selectedIds))}
-            sx={{ mt: 2 }}
-            variant="contained"
+        <Navbar title="Nutanix mine with veem cluster setup" />
+        <Main>
+          <Box
+            sx={{
+              p: "40px",
+              mx: "auto",
+              maxWidth: "1360px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              height: 1,
+            }}
           >
-            Delete VMs
-          </Button>
-        </Box>
+            <Typography sx={{ mb: "10px", fontWeight: 600 }}>
+              Manage VMs
+            </Typography>
+            <Box sx={{ flexGrow: 1, width: 1 }}>
+              <DataGrid
+                rows={Object.values(VMs)}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                checkboxSelection
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+                onCellClick={(params) => {
+                  if (params.field === "power") {
+                    dispatch(togglePower(params.row.id));
+                  }
+                }}
+                onSelectionModelChange={(selectionModel) => {
+                  this.handleSelectChange(selectionModel as string[]);
+                }}
+              />
+            </Box>
+            <Button
+              onClick={() => dispatch(deleteVMs(selectedIds))}
+              sx={{ mt: 2 }}
+              variant="contained"
+            >
+              Delete VMs
+            </Button>
+          </Box>
+        </Main>
         <Footer>
           <Button onClick={() => navigate("/")} variant="contained">
             Close

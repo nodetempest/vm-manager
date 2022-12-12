@@ -4,6 +4,8 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Button, Stepper, Step, StepButton } from "@mui/material";
 import { useDispatch } from "react-redux";
 
+import { Navbar } from "~/layouts/VMWizard/Navbar";
+import { Main } from "~/layouts/VMWizard/Main";
 import { Footer } from "~/layouts/VMWizard/Footer";
 import { StepOne, useStepOneForm, IStepOneFormInput } from "./steps/StepOne";
 import { StepTwo, useStepTwoForm, IStepTwoFormInput } from "./steps/StepTwo";
@@ -99,79 +101,79 @@ export class Base extends React.Component<TWithStateProps, TAddVMState> {
 
     return (
       <>
-        <Box
-          sx={{
-            height: "40px",
-            borderBottom: "1px solid",
-            borderColor: "grey.300",
-          }}
-        />
-        <Box
-          component="main"
-          sx={{
-            p: "0px 40px",
-            flexGrow: 1,
-            maxWidth: "1360px",
-            alignSelf: "center",
-            width: 1,
-          }}
-        >
+        <Navbar title="Add Virtual Machine" />
+        <Main>
           <Box
             sx={{
-              maxWidth: 1000,
-              display: "flex",
-              gap: 6,
-              alignItems: "flex-start",
+              height: "40px",
+              borderBottom: "1px solid",
+              borderColor: "grey.300",
+            }}
+          />
+          <Box
+            sx={{
+              mx: "auto",
+              p: "0px 40px",
+              maxWidth: "1360px",
             }}
           >
-            <Stepper
-              nonLinear
-              activeStep={activeStep}
-              orientation="vertical"
+            <Box
               sx={{
-                pt: 3,
-                "& .MuiStepLabel-labelContainer": { order: -1 },
-                "& .MuiStepButton-root": { justifyContent: "end" },
-                "& .MuiStepConnector-line": {
-                  borderRightStyle: "solid",
-                  borderRightWidth: 1,
-                  borderLeftWidth: 0,
-                },
-                "& .MuiStepConnector-root": { ml: 0, mr: "12px" },
-                "& .MuiStepLabel-iconContainer": {
-                  pr: 0,
-                  pl: 1,
-                },
+                maxWidth: 1000,
+                display: "flex",
+                gap: 6,
+                alignItems: "flex-start",
               }}
             >
-              {steps.map((label, index) => (
-                <Step
-                  key={label}
-                  completed={activeStep !== index && completed[index]}
-                >
-                  <StepButton
-                    color="inherit"
-                    onClick={() => this.handleSetStep(index)}
+              <Stepper
+                nonLinear
+                activeStep={activeStep}
+                orientation="vertical"
+                sx={{
+                  pt: 3,
+                  "& .MuiStepLabel-labelContainer": { order: -1 },
+                  "& .MuiStepButton-root": { justifyContent: "end" },
+                  "& .MuiStepConnector-line": {
+                    borderRightStyle: "solid",
+                    borderRightWidth: 1,
+                    borderLeftWidth: 0,
+                  },
+                  "& .MuiStepConnector-root": { ml: 0, mr: "12px" },
+                  "& .MuiStepLabel-iconContainer": {
+                    pr: 0,
+                    pl: 1,
+                  },
+                }}
+              >
+                {steps.map((label, index) => (
+                  <Step
+                    key={label}
+                    completed={activeStep !== index && completed[index]}
                   >
-                    {label}
-                  </StepButton>
-                </Step>
-              ))}
-            </Stepper>
-            <Box sx={{ p: 4, flexGrow: 1 }}>
-              {
-                [
-                  <StepOne control={stepOneForm.control} />,
-                  <StepTwo control={stepTwoForm.control} />,
-                  <StepThree
-                    control={stepThreeForm.control}
-                    {...stepOneForm.getValues()}
-                  />,
-                ][activeStep]
-              }
+                    <StepButton
+                      color="inherit"
+                      onClick={() => this.handleSetStep(index)}
+                    >
+                      {label}
+                    </StepButton>
+                  </Step>
+                ))}
+              </Stepper>
+              <Box sx={{ p: 4, flexGrow: 1 }}>
+                {
+                  [
+                    <StepOne control={stepOneForm.control} />,
+                    <StepTwo control={stepTwoForm.control} />,
+                    <StepThree
+                      control={stepThreeForm.control}
+                      {...stepOneForm.getValues()}
+                    />,
+                  ][activeStep]
+                }
+              </Box>
             </Box>
           </Box>
-        </Box>
+        </Main>
         <Footer>
           <Button onClick={this.handleBack} variant="outlined">
             Back

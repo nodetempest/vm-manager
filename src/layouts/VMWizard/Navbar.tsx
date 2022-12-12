@@ -1,10 +1,15 @@
 import * as React from "react";
-import { Routes, Route, useNavigate, NavigateFunction } from "react-router-dom";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 import { Box, Typography, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
-class Base extends React.Component<TWithNavigateProps> {
+export type TNavbarProps = TWithStateProps & {
+  title: string;
+};
+
+class Base extends React.Component<TNavbarProps> {
   render() {
+    const { navigate, title } = this.props;
     return (
       <Box
         component="nav"
@@ -25,24 +30,9 @@ class Base extends React.Component<TWithNavigateProps> {
             justifyContent: "space-between",
           }}
         >
-          <Routes>
-            <Route
-              path="/add-vm"
-              element={
-                <Typography variant="h6" sx={{ color: "common.white" }}>
-                  Add Virtual Machine
-                </Typography>
-              }
-            />
-            <Route
-              path="/vm-list"
-              element={
-                <Typography variant="h6" sx={{ color: "common.white" }}>
-                  Nutanix mine with veem cluster setup
-                </Typography>
-              }
-            />
-          </Routes>
+          <Typography variant="h6" sx={{ color: "common.white" }}>
+            {title}
+          </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box
               sx={{
@@ -54,7 +44,7 @@ class Base extends React.Component<TWithNavigateProps> {
             />
             <IconButton
               sx={{ color: "common.white" }}
-              onClick={() => this.props.navigate("/")}
+              onClick={() => navigate("/")}
             >
               <Close sx={{ color: "common.white" }} />
             </IconButton>
@@ -65,17 +55,17 @@ class Base extends React.Component<TWithNavigateProps> {
   }
 }
 
-export type TWithNavigateProps = {
+export type TWithStateProps = {
   navigate: NavigateFunction;
 };
 
-const withNavigate = <P extends TWithNavigateProps>(
+const withState = <P extends TWithStateProps>(
   Component: React.ComponentType<P>
-): React.FC<Omit<P, keyof TWithNavigateProps>> => {
+): React.FC<Omit<P, keyof TWithStateProps>> => {
   return (props) => {
     const navigate = useNavigate();
     return <Component {...(props as P)} navigate={navigate} />;
   };
 };
 
-export const Navbar = withNavigate(Base);
+export const Navbar = withState(Base);

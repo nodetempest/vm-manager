@@ -9,6 +9,7 @@ export class Footer extends React.Component<TFooterProps> {
   render() {
     return (
       <Box
+        component="footer"
         sx={{
           padding: "20px 40px",
           borderTop: "1px solid",
