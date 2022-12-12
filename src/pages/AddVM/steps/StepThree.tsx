@@ -3,6 +3,7 @@ import { useForm, Control, Controller } from "react-hook-form";
 import { Box, Typography, FormControlLabel, Checkbox } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import mapValues from "lodash/mapValues";
 
 import { keyLabelMap, IStepOneFormInput } from "./StepOne";
 
@@ -32,7 +33,11 @@ export type TStepThreeProps = {
 
 export class StepThree extends React.Component<TStepThreeProps> {
   render() {
-    const { control, ...VMData } = this.props;
+    const { control, ...rawVMData } = this.props;
+
+    const VMData = mapValues(rawVMData, (value, key: keyof IStepOneFormInput) =>
+      key === "password" ? "*".repeat(value.length) : value
+    );
 
     return (
       <>
@@ -63,7 +68,7 @@ export class StepThree extends React.Component<TStepThreeProps> {
                 variant="subtitle2"
                 sx={{ color: "grey.600" }}
               >
-                {keyLabelMap[key as keyof typeof VMData]}:
+                {keyLabelMap[key as keyof IStepOneFormInput]}:
               </Typography>
             ))}
           </Box>
