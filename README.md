@@ -4,7 +4,7 @@
 
 #### A dashboard to create and manage Virtual Machines
 
-#### [Check in action](https://vm-manager-236c7.web.app/add-vm)
+#### [Check in action](https://vm-manager-236c7.web.app)
 
 ##### Requirments:
 
